@@ -146,7 +146,7 @@ func (conn *sqlCommenterConn) withComment(ctx context.Context, query string) str
 
 	// A semicolon at the end of the SQL statement means the query ends there.
 	// We need to insert the comment before that to be considered as part of the SQL statemtent.
-	if query[len(query)-1:] == ";" {
+	if strings.HasSuffix(query, ";") {
 		return fmt.Sprintf("%s%s;", strings.TrimSuffix(query, ";"), commentsString)
 	}
 	return fmt.Sprintf("%s%s", query, commentsString)
